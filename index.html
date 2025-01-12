@@ -1,6 +1,268 @@
 <!DOCTYPE html>
-<html>
-    <body>
-        <h1>Test :3</h1>
-    </body>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="bunny.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kali's Infosite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 100px 0 0 0;
+            font-family: 'Fira Mono', monospace;
+            background-color: #1e1e2e;
+            color: #cdd6f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-y: scroll;
+        }
+
+        .center-panel {
+            background-color: hsla(228, 17%, 64%, 0.2);
+            border: 1px solid #eba0ac;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeInPage 2s ease-in forwards;
+            margin-bottom: 100px;
+        }
+
+        .time-box {
+            background-color: rgba(147, 153, 178, 0.2);
+            border: 1px solid #eba0ac;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            width: fit-content;
+            font-size: 1.2rem;
+            opacity: 0;
+            animation: fadeInPage 2s ease-in forwards;
+        }
+
+        a {
+            color: #cdd6f4;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background-color: #cba6f7;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        ul {
+            list-style-position: inside;
+            padding-left: 0;
+        }
+
+        .section-divider {
+            width: 80%;
+            height: 2px;
+            background-color: rgba(235, 160, 172, 0.5);
+            margin: 40px auto;
+        }
+
+        .badges {
+            margin-top: 80px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 170px;
+        }
+
+        .badges img {
+            image-rendering: pixelated;
+            transform: scale(2.4);
+            overflow: hidden;
+            will-change: transform;
+            transition: transform 0.2s ease;
+        }
+
+        .badges img:hover {
+            transform: scale(3.6);
+        }
+
+        h1, h2, p, ul, li {
+            color: inherit;
+        }
+
+        h2 {
+            animation: fadeInSection 1.5s ease-in;
+        }
+
+        @keyframes fadeInPage {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInSection {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const stars = [];
+
+            const layers = 3;
+            const pageHeight = document.body.scrollHeight;
+
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                const layer = Math.floor(Math.random() * layers) + 1;
+                const size = Math.random() * 3 + 1;
+                star.className = 'star';
+                star.dataset.layer = layer;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.top = `${Math.random() * pageHeight}px`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.zIndex = 10 - layer;
+                star.style.animationDuration = `${Math.random() * 5 + 3}s`;
+                body.appendChild(star);
+                stars.push({ star, layer });
+            }
+
+            let lastScrollTop = window.scrollY;
+
+            document.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const scrollDelta = scrollTop - lastScrollTop;
+
+                stars.forEach(({ star, layer }) => {
+                    const parallaxFactor = layer * 0.1;
+                    const currentTop = parseFloat(star.style.top);
+                    const newTop = currentTop - scrollDelta * parallaxFactor;
+                    star.style.top = `${newTop}px`;
+                });
+
+                lastScrollTop = scrollTop;
+            });
+
+            const timeElement = document.getElementById('current-time');
+            function updateTime() {
+                const now = new Date();
+                const options = { timeZone: 'America/Chicago', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                timeElement.textContent = new Intl.DateTimeFormat('en-US', options).format(now);
+            }
+            setInterval(updateTime, 1000);
+        });
+    </script>
+</head>
+<body>
+    <div class="time-box">
+        My current time (CST): <span id="current-time">Loading...</span>
+    </div>
+    <div class="center-panel">
+        <h1 style="color: #cdd6f4;">
+            <img src="adorabline.png" alt="adorabline emoji" style="width: 65px; height: 52px; vertical-align: middle; margin-right: 5px;">
+            Welcome to Kali's Infosite
+            <img src="bunny.png" alt="bunny emoji" style="width: 50px; height: 50px; vertical-align: middle;">
+        </h1>
+        <p style="color: #bac2de;">
+            This is just a small information site about me and maybe my projects, though I rarely share them. Sorry for the bad CSS lol, im not a web developer.
+        </p>
+        <div class="section-divider"></div>
+        <h2 style="color: #cdd6f4;">About Me</h2>
+        <p style="color: #bac2de;">
+            I am a 17 year old transfem (she/her) quantum physicist and software engineer named Kali, I typically spend my time combining these practices in niche ways as a visualization or challenge. I also really like teaching physics to people who are enthuiastic about learning them ^-^  
+        </p>
+        <p style="color: #bac2de;">
+            Im usually decently social, so feel free to dm me, though my dms are decently active so I may not respond to all of them.
+        </p>
+        <p style="color: #5865F2; margin-top: 10px; font-weight: bold;">
+            Discord: <span style="color:#bac2de; font-weight: bold;">bunnyhaver</span>
+        </p>
+        <div class="section-divider"></div>
+        <h2 style="color: #cdd6f4;">Interests</h2>
+        <ul>
+            <li style="color: #bac2de;">Programming</li>
+            <li style="color: #bac2de;">Circuitry</li>
+            <li style="color: #bac2de;">Quantum / Nuclear Physics</li>
+            <li style="color: #bac2de;">Worldbuilding</li>
+            <li style="color: #bac2de;">Coffee Making</li>
+            <li style="color: #bac2de;">Gardening</li>
+        </ul>
+        <div class="section-divider"></div>
+        <h2 style="color: #cdd6f4;">Programming Languages</h2>
+        <ul>
+            <li style="color: #bac2de;">JavaScript</li>
+            <li style="color: #bac2de;">Python</li>
+            <li style="color: #bac2de;">Lua</li>
+            <li style="color: #bac2de;">Rust</li>
+            <li style="color: #bac2de;">Qiskit</li>
+            <li style="color: #bac2de;">Assembly</li>
+        </ul>
+        <div class="section-divider"></div>
+        <h2 style="color: #cdd6f4;">Things I can do</h2>
+        <ul>
+            <li style="color: #bac2de;">Embedded Programming</li>
+            <li style="color: #bac2de;">Graphics Programming</li>
+            <li style="color: #bac2de;">Cryptography Programming</li>
+            <li style="color: #bac2de;">Physics Simulations Programming</li>
+            <li style="color: #bac2de;">Quantum Physics Research & Modeling</li>
+        </ul>
+        <div class="section-divider"></div>
+        <h2 style="color: #cdd6f4;">What I've Been Working On</h2>
+        <p style="color: #bac2de;">
+            Oh boy, would it be surprising if I said a programmer with ADHD has about 100 seperate projects and none of them are finished? No?
+        </p>
+        <p style="color: #bac2de;">
+            Most of the work I show off is in Minecraft, while I dont really like Minecraft, I love the Computercraft mod, and the worldbuilding ability that Minecraft provides.
+        </p>
+        <p style="color: #bac2de;">
+            As you likely found this page off the Minecraft communities I interact with, I do alot of Computercraft programming, including more niche implementations like Assembly Processors, or Quantum computer emulators.
+        </p>
+        <p style="color: #bac2de;">
+            I also do very large builds that I enhance with computercraft and other mods, like facilities with nuclear reactor controllers, massive airships with controls, etc.
+        </p>
+        <p style="color: #bac2de;">
+            Outside of Minecraft, thats where things typically get more technical, ive been working on a dynamically-typed-mathematics-focused programming language called Kscript, to help me with my Quantum Simulations research.
+        </p>
+        <p style="color: #bac2de;">
+            Ive also been working on some embedded systems recently for just doing cool things around my household, and interacting with the circuitry I make.
+        </p>
+        <p style="color: #bac2de;">
+            At some point ill properly link this page to my github, and make a visual showcase of some of my stuff, just give me like... 20 years?
+        </p>
+        <div class="badges">
+            <img src="female.png" alt="Female Badge">
+            <img src="latte.png" alt="Latte Badge">
+            <img src="pride1.png" alt="Pride Badge">
+        </div>
+    </div>
+</body>
 </html>
