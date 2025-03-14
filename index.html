@@ -72,7 +72,7 @@
             animation: fadeInSection 0.8s ease-in forwards;
             animation-delay: calc(var(--i) * 0.2s);
             margin-bottom: 30px;
-            cursor: not-allowed;
+            cursor: default;
         }
 
         a {
@@ -128,7 +128,7 @@
             color: var(--bg-color);
             transform: translateY(-3px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            cursor: not-allowed;
+            cursor: default;
         }
 
         .section-divider {
@@ -308,15 +308,6 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            color: var(--text-color);
-            font-size: 1.2rem;
-            cursor: pointer;
-            margin-left: 15px;
         }
 
         @media (max-width: 768px) {
