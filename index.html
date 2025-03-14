@@ -4,30 +4,61 @@
     <link rel="icon" type="image/png" href="bunny.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kali's Infosite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
+    <title>Kali's Space</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #1e1e2e;
+            --text-color: #cdd6f4;
+            --text-muted: #bac2de;
+            --footer-text: #a6e3a1;
+            --contact-text: #b4befe;
+            --accent-color: #eba0ac;
+            --secondary-accent: #cba6f7;
+            --panel-bg: hsla(228, 17%, 64%, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease-out;
+        }
+
         body {
             margin: 0;
-            padding: 100px 0 0 0;
+            padding: 30px 0 0 0;
             font-family: 'Fira Mono', monospace;
-            background-color: #1e1e2e;
-            color: #cdd6f4;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-y: scroll;
-            overflow-x: clip;
+            overflow-y: auto;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .time-box {
+            background-color: rgba(147, 153, 178, 0.2);
+            border: 1px solid var(--accent-color);
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            width: fit-content;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            opacity: 0;
+            animation: fadeInPage 2s ease-in forwards;
         }
 
         .center-panel {
-            background-color: hsla(228, 17%, 64%, 0.2);
-            border: 1px solid #eba0ac;
-            padding: 20px;
-            width: 80%;
+            background-color: var(--panel-bg);
+            border: 1px solid var(--accent-color);
+            border-radius: 10px;
+            padding: 30px;
+            width: 90%;
             max-width: 800px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.5);
             text-align: center;
             position: relative;
             z-index: 10;
@@ -36,112 +67,482 @@
             margin-bottom: 100px;
         }
 
-        .time-box {
-            background-color: rgba(147, 153, 178, 0.2);
-            border: 1px solid #eba0ac;
-            padding: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            width: fit-content;
-            font-size: 1.2rem;
+        .section {
             opacity: 0;
-            animation: fadeInPage 2s ease-in forwards;
+            animation: fadeInSection 0.8s ease-in forwards;
+            animation-delay: calc(var(--i) * 0.2s);
+            margin-bottom: 30px;
+            cursor: not-allowed;
         }
 
         a {
-            color: #cdd6f4;
+            color: var(--accent-color);
             text-decoration: none;
             font-weight: bold;
+            transition: all 0.2s ease;
         }
 
         a:hover {
             text-decoration: underline;
+            color: var(--secondary-accent);
         }
 
         .star {
             position: absolute;
             border-radius: 50%;
-            background-color: #cba6f7;
+            background-color: var(--secondary-accent);
             animation: twinkle 5s infinite ease-in-out;
         }
 
         @keyframes twinkle {
             0%, 100% {
                 opacity: 0.5;
+                transform: scale(1);
             }
             50% {
                 opacity: 1;
+                transform: scale(1.2);
             }
         }
 
-        ul {
-            list-style-position: inside;
-            padding-left: 0;
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .skill-tag {
+            background-color: rgba(235, 160, 172, 0.2);
+            color: var(--text-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(235, 160, 172, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .skill-tag:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: not-allowed;
         }
 
         .section-divider {
             width: 80%;
             height: 2px;
-            background-color: rgba(235, 160, 172, 0.5);
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
             margin: 40px auto;
         }
 
         .badges {
-            margin-top: 80px;
-            margin-bottom: 40px;
+            margin-top: 60px;
             display: flex;
             justify-content: center;
-            gap: 170px;
+            gap: 120px;
+            flex-wrap: wrap;
         }
 
-        .badges img {
+        .badge-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-container img {
             image-rendering: pixelated;
-            transform: scale(2.4);
-            overflow: hidden;
-            will-change: transform;
+            transform: scale(2);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .badge-container:hover img {
+            transform: scale(3);
+        }
+
+        .badge-label {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .badge-container:hover .badge-label {
+            opacity: 1;
+        }
+
+        .project-card {
+            background-color: rgba(147, 153, 178, 0.1);
+            border: 1px solid rgba(235, 160, 172, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
+        }
+
+        .project-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .toast {
+            position: fixed;
+            padding: 8px 12px;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border-radius: 5px;
+            font-size: 0.9rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 9999;
+            white-space: nowrap;
+        }
+
+        .contact-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 25px;
+            padding: 15px 20px;
+            background-color: rgba(147, 153, 178, 0.1);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .contact:hover {
+            background-color: rgba(235, 160, 172, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .copy-contact {
+            cursor: pointer;
             transition: transform 0.2s ease;
         }
 
-        .badges img:hover {
-            transform: scale(3.6);
+        h1, h2 {
+            position: relative;
+            display: inline-block;
         }
 
-        h1, h2, p, ul, li {
-            color: inherit;
+        h1::after, h2::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            background-color: var(--accent-color);
+            transition: all 0.3s ease-out;
         }
 
-        h2 {
-            animation: fadeInSection 1.5s ease-in;
+        h1:hover::after, h2:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+
+        .back-to-top.visible {
+            opacity: 0.8;
+        }
+
+        .back-to-top:hover {
+            opacity: 1;
+            transform: translateY(-5px);
         }
 
         @keyframes fadeInPage {
             from {
                 opacity: 0;
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
+                transform: translateY(0);
             }
         }
 
         @keyframes fadeInSection {
             from {
                 opacity: 0;
+                transform: translateY(15px);
             }
             to {
                 opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .center-panel {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .badges {
+                gap: 40px;
+            }
+            
+            .skill-list {
+                gap: 8px;
+            }
+            
+            .skill-tag {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+            }
+            
+            .contact {
+                padding: 10px 15px;
+                font-size: 0.9rem;
             }
         }
 
     </style>
+</head>
+<body>
+    <div class="time-box">
+        My current time (CST): <span id="current-time">Loading...</span>
+    </div>
+
+    <div class="center-panel">
+        <div class="section" style="--i:1">
+            <h1>
+                <img src="adorabline.png" alt="adorabline emoji" style="width: 50px; height: auto; vertical-align: middle; margin-right: 10px;">
+                Welcome to Kali's Space
+                <img src="bunny.png" alt="bunny emoji" style="width: 40px; height: auto; vertical-align: middle; margin-left: 10px;">
+            </h1>
+            <p style="color: var(--text-muted);">
+                This is just a small information site about me and maybe my projects, though I rarely share them.
+            </p>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div id="about" class="section" style="--i:2">
+            <h2>About Me</h2>
+            <p style="color: var(--text-muted);">
+                I am a 17 year old transfem (she/her) quantum physicist and software engineer named Kali, I typically spend my time combining these practices in niche ways as a visualization or challenge. I also really like teaching physics to people who are enthusiastic about learning them ^-^  
+            </p>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="section" style="--i:3">
+            <h2>Interests</h2>
+            <div class="skill-list">
+                <div class="skill-tag">Programming</div>
+                <div class="skill-tag">Circuitry</div>
+                <div class="skill-tag">Quantum / Nuclear Physics</div>
+                <div class="skill-tag">Worldbuilding</div>
+                <div class="skill-tag">Coffee Making</div>
+                <div class="skill-tag">Gardening</div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div id="skills" class="section" style="--i:4">
+            <h2>Programming Languages</h2>
+            <div class="skill-list">
+                <div class="skill-tag">JavaScript</div>
+                <div class="skill-tag">Python</div>
+                <div class="skill-tag">Lua</div>
+                <div class="skill-tag">Rust</div>
+                <div class="skill-tag">Qiskit</div>
+                <div class="skill-tag">Assembly</div>
+            </div>
+
+            <h2 style="margin-top: 30px;">Technical Skills</h2>
+            <div class="skill-list">
+                <div class="skill-tag">Embedded Programming</div>
+                <div class="skill-tag">Graphics Programming</div>
+                <div class="skill-tag">Cryptography</div>
+                <div class="skill-tag">Physics Simulations</div>
+                <div class="skill-tag">Quantum Physics Research</div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div id="projects" class="section" style="--i:5">
+            <h2>What I've Been Working On</h2>
+            
+            <div class="project-card">
+                <div class="project-title">Minecraft & Computercraft</div>
+                <p style="color: var(--text-muted);">
+                    Most of the work I show off is in Minecraft, while I dont really like Minecraft, I love the Computercraft mod, and the worldbuilding ability that Minecraft provides.
+                </p>
+                <p style="color: var(--text-muted);">
+                    As you likely found this page off the Minecraft communities I interact with, I do alot of Computercraft programming, including more niche implementations like Assembly Processors, or Quantum computer emulators.
+                </p>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-title">Large-Scale Builds & Automation</div>
+                <p style="color: var(--text-muted);">
+                    I also do very large builds that I enhance with computercraft and other mods, like facilities with nuclear reactor controllers, massive airships with controls, etc.
+                </p>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-title">Sigil Language</div>
+                <p style="color: var(--text-muted);">
+                    Outside of Minecraft, thats where things typically get more technical, ive been working on a scientific computation focused language with a JIT / Interpreter hybrid called Sigil, which I may or may not release for others to use at some point. 
+                </p>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-title">Embedded Systems</div>
+                <p style="color: var(--text-muted);">
+                    Ive also been working on some embedded systems recently for just doing cool things around my household, and interacting with the circuitry I make.
+                </p>
+            </div>
+            <div class="project-card">
+                <div class="project-title">IBM Cert</div>
+                <p style="color: var(--text-muted);">
+                    At some point, ill also have an IBM Quantum Developer Certification, im very interested in the future of Quantum Computation and where it could go, I want to eventually work in a quantum simulations field working on some form of biomedical research or astrophysics research, so im looking forward to that!
+                </p>
+            </div>
+            
+            <p style="color: var(--footer-text); margin-top: 30px;">
+                Eventually ill properly link this page to my github, and make a visual showcase of some of my stuff, just give me like... 20 years?
+            </p>
+        </div>
+
+
+        <div class="section-divider"></div>
+
+        <div id="contact" class="section" style="--i:6">
+            <h2>Contact Me</h2>
+
+            <p style="color: var(--contact-text);">
+                Im usually decently social, so feel free to dm me, though my dms are decently active so I may not respond to all of them.
+            </p>
+            
+            <div class="contact-row">
+                <div class="contact copy-contact" data-contact="bunnyhaver">
+                    <span style="color:#c0c5ff; font-weight: bold;">Discord:</span>
+                    <span style="color:var(--text-muted); font-weight: bold;">bunnyhaver</span>
+                </div>
+        
+                <div class="contact copy-contact" data-contact="@kali:matrix.kalidev.cc">
+                    <span style="color:#c0c5ff; font-weight: bold;">Matrix:</span>
+                    <span style="color:var(--text-muted); font-weight: bold;">@kali:matrix.kalidev.cc</span>
+                </div>
+            </div>
+            <div class="badges">
+                <div class="badge-container">
+                    <img src="female.png" alt="Female Badge">
+                    <span class="badge-label">Transfem</span>
+                </div>
+                <div class="badge-container">
+                    <img src="latte.png" alt="Latte Badge">
+                    <span class="badge-label">Coffee Lover</span>
+                </div>
+                <div class="badge-container">
+                    <img src="pride1.png" alt="Pride Badge">
+                    <span class="badge-label">LGBTQ+</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="toast" class="toast">📋 Copied!</div>
+    </div>
+        
+    <div class="back-to-top">↑</div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const toast = document.getElementById('toast');
+            const contactItems = document.querySelectorAll('.copy-contact');
+    
+            contactItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    const contactText = item.getAttribute('data-contact');
+                    
+                    navigator.clipboard.writeText(contactText).then(() => {
+                        const rect = item.getBoundingClientRect();
+                        const x = rect.left + window.scrollX;
+                        const y = rect.top + window.scrollY - 10;
+
+                        toast.textContent = `📋 Copied: ${contactText}`;
+                        toast.style.left = `${x}px`;
+                        toast.style.top = `${y}px`;
+                        toast.style.opacity = '1';
+                        toast.style.transform = 'translate(-50%, -200%) scale(1)';
+
+                        item.style.transform = 'scale(0.9)';
+                        
+                        setTimeout(() => {
+                            item.style.transform = 'scale(1)';
+                        }, 200);
+                        
+                        setTimeout(() => {
+                            toast.style.opacity = '0';
+                            toast.style.transform = 'translate(-50%, -100%) scale(0.9)';
+                        }, 1500);
+                    }).catch(err => {
+                        console.error('Failed to copy text: ', err);
+                    });
+                });
+            });
+    
             const body = document.body;
             const stars = [];
-
+            const backToTopButton = document.querySelector('.back-to-top');
+    
+            
             const layers = 3;
-            const pageHeight = document.body.scrollHeight;
-
-            for (let i = 0; i < 200; i++) {
+            const pageHeight = Math.max(document.body.scrollHeight, 2000);
+            
+            for (let i = 0; i < 150; i++) {
                 const star = document.createElement('div');
                 const layer = Math.floor(Math.random() * layers) + 1;
                 const size = Math.random() * 3 + 1;
@@ -151,119 +552,74 @@
                 star.style.height = `${size}px`;
                 star.style.top = `${Math.random() * pageHeight}px`;
                 star.style.left = `${Math.random() * 100}vw`;
-                star.style.zIndex = 10 - layer;
+                star.style.zIndex = 1;
                 star.style.animationDuration = `${Math.random() * 5 + 3}s`;
                 body.appendChild(star);
                 stars.push({ star, layer });
             }
-
+            
             let lastScrollTop = window.scrollY;
-
-            document.addEventListener('scroll', () => {
-                const scrollTop = window.scrollY;
-                const scrollDelta = scrollTop - lastScrollTop;
-
-                stars.forEach(({ star, layer }) => {
-                    const parallaxFactor = layer * 0.1;
-                    const currentTop = parseFloat(star.style.top);
-                    const newTop = currentTop - scrollDelta * parallaxFactor;
-                    star.style.top = `${newTop}px`;
-                });
-
-                lastScrollTop = scrollTop;
+            let ticking = false;
+            
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const scrollTop = window.scrollY;
+                        const scrollDelta = scrollTop - lastScrollTop;
+                        
+                        stars.forEach(({ star, layer }) => {
+                            const parallaxFactor = layer * 0.05;
+                            const currentTop = parseFloat(star.style.top);
+                            const newTop = currentTop - scrollDelta * parallaxFactor;
+                            star.style.top = `${newTop}px`;
+                        });
+                        
+                        if (scrollTop > 300) {
+                            backToTopButton.classList.add('visible');
+                        } else {
+                            backToTopButton.classList.remove('visible');
+                        }
+                        
+                        lastScrollTop = scrollTop;
+                        ticking = false;
+                    });
+                    
+                    ticking = true;
+                }
             });
-
+            
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
             const timeElement = document.getElementById('current-time');
             function updateTime() {
                 const now = new Date();
                 const options = { timeZone: 'America/Chicago', hour: '2-digit', minute: '2-digit', second: '2-digit' };
                 timeElement.textContent = new Intl.DateTimeFormat('en-US', options).format(now);
             }
+            updateTime();
             setInterval(updateTime, 1000);
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
     </script>
-</head>
-<body>
-    <div class="time-box">
-        My current time (CST): <span id="current-time">Loading...</span>
-    </div>
-    <div class="center-panel">
-        <h1 style="color: #cdd6f4;">
-            <img src="adorabline.png" alt="adorabline emoji" style="width: 65px; height: 52px; vertical-align: middle; margin-right: 5px;">
-            Welcome to Kali's Infosite
-            <img src="bunny.png" alt="bunny emoji" style="width: 50px; height: 50px; vertical-align: middle;">
-        </h1>
-        <p style="color: #bac2de;">
-            This is just a small information site about me and maybe my projects, though I rarely share them. Sorry for the bad CSS lol, im not a web developer.
-        </p>
-        <div class="section-divider"></div>
-        <h2 style="color: #cdd6f4;">About Me</h2>
-        <p style="color: #bac2de;">
-            I am a 17 year old transfem (she/her) quantum physicist and software engineer named Kali, I typically spend my time combining these practices in niche ways as a visualization or challenge. I also really like teaching physics to people who are enthusiastic about learning them ^-^  
-        </p>
-        <p style="color: #bac2de;">
-            Im usually decently social, so feel free to dm me, though my dms are decently active so I may not respond to all of them.
-        </p>
-        <p style="color: #c0c5ff; margin-top: 10px; font-weight: bold;">
-            Discord: <span style="color:#bac2de; font-weight: bold;">bunnyhaver</span>
-        </p>
-        <div class="section-divider"></div>
-        <h2 style="color: #cdd6f4;">Interests</h2>
-        <ul>
-            <li style="color: #bac2de;">Programming</li>
-            <li style="color: #bac2de;">Circuitry</li>
-            <li style="color: #bac2de;">Quantum / Nuclear Physics</li>
-            <li style="color: #bac2de;">Worldbuilding</li>
-            <li style="color: #bac2de;">Coffee Making</li>
-            <li style="color: #bac2de;">Gardening</li>
-        </ul>
-        <div class="section-divider"></div>
-        <h2 style="color: #cdd6f4;">Programming Languages</h2>
-        <ul>
-            <li style="color: #bac2de;">JavaScript</li>
-            <li style="color: #bac2de;">Python</li>
-            <li style="color: #bac2de;">Lua</li>
-            <li style="color: #bac2de;">Rust</li>
-            <li style="color: #bac2de;">Qiskit (Kinda counts?)</li>
-            <li style="color: #bac2de;">Assembly</li>
-        </ul>
-        <div class="section-divider"></div>
-        <h2 style="color: #cdd6f4;">Things I can do</h2>
-        <ul>
-            <li style="color: #bac2de;">Embedded Programming</li>
-            <li style="color: #bac2de;">Graphics Programming</li>
-            <li style="color: #bac2de;">Cryptography Programming</li>
-            <li style="color: #bac2de;">Physics Simulations Programming</li>
-            <li style="color: #bac2de;">Quantum Physics Research & Modeling</li>
-        </ul>
-        <div class="section-divider"></div>
-        <h2 style="color: #cdd6f4;">What I've Been Working On</h2>
-        <p style="color: #bac2de;">
-            Oh boy, would it be surprising if I said a programmer with ADHD has about 100 seperate projects and none of them are finished? No?
-        </p>
-        <p style="color: #bac2de;">
-            Most of the work I show off is in Minecraft, while I dont really like Minecraft, I love the Computercraft mod, and the worldbuilding ability that Minecraft provides.
-        </p>
-        <p style="color: #bac2de;">
-            As you likely found this page off the Minecraft communities I interact with, I do alot of Computercraft programming, including more niche implementations like Assembly Processors, or Quantum computer emulators.
-        </p>
-        <p style="color: #bac2de;">
-            I also do very large builds that I enhance with computercraft and other mods, like facilities with nuclear reactor controllers, massive airships with controls, etc.
-        </p>
-        <p style="color: #bac2de;">
-            Outside of Minecraft, thats where things typically get more technical, ive been working on a dynamically-typed-mathematics-focused programming language called Kscript, to help me with my Quantum Simulations research.
-        </p>
-        <p style="color: #bac2de;">
-            Ive also been working on some embedded systems recently for just doing cool things around my household, and interacting with the circuitry I make.
-        </p>
-        <p style="color: #bac2de;">
-            At some point ill properly link this page to my github, and make a visual showcase of some of my stuff, just give me like... 20 years?
-        </p>
-        <div class="badges">
-            <img src="female.png" alt="Female Badge">
-            <img src="latte.png" alt="Latte Badge">
-            <img src="pride1.png" alt="Pride Badge">
-        </div>
-    </div>
 </body>
 </html>
