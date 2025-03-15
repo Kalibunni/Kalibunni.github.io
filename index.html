@@ -15,6 +15,7 @@
             --contact-text: #b4befe;
             --accent-color: #eba0ac;
             --secondary-accent: #cba6f7;
+            --tertiary-accent: #6e5a6d;
             --panel-bg: hsla(228, 17%, 64%, 0.2);
         }
 
@@ -50,6 +51,169 @@
             opacity: 0;
             animation: fadeInPage 2s ease-in forwards;
         }
+
+        .about-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .about-card {
+            display: flex;
+            background-color: rgba(147, 153, 178, 0.15);
+            border: 1px solid var(--tertiary-accent);
+            border-radius: 12px;
+            padding: 20px;
+            gap: 25px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
+        }
+
+        .about-avatar {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+        }
+
+        .avatar-img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+            border-radius: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .avatar-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.5;
+            filter: blur(10px);
+            z-index: 1;
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(0.8);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.6;
+            }
+        }
+
+        .about-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .about-item {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .about-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .about-value {
+            font-size: 1rem;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .about-text {
+            background-color: rgba(147, 153, 178, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            border-left: 3px solid var(--accent-color);
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .about-text p {
+            margin: 10px 0;
+        }
+
+        .emoji {
+            display: inline-block;
+            color: var(--accent-color);
+            font-weight: bold;
+            transform: scale(1.2);
+            animation: wave 2s infinite;
+        }
+
+        .about-quote {
+            margin-top: 20px;
+            font-style: italic;
+            position: relative;
+            padding: 10px 20px;
+            color: var(--text-color);
+        }
+
+        .quote-mark {
+            font-size: 1.5rem;
+            color: var(--secondary-accent);
+            font-weight: bold;
+            position: relative;
+        }
+
+        .quote-text {
+            padding: 0 5px;
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: rotate(0deg) scale(1.2);
+            }
+            25% {
+                transform: rotate(10deg) scale(1.2);
+            }
+            75% {
+                transform: rotate(-5deg) scale(1.2);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .about-details {
+                align-items: center;
+            }
+            
+            .about-item {
+                align-items: center;
+            }
+        }    
 
         .center-panel {
             background-color: var(--panel-bg);
@@ -357,12 +521,44 @@
         <div class="section-divider"></div>
 
         <div id="about" class="section" style="--i:2">
-            <h2>About Me</h2>
-            <p style="color: var(--text-muted);">
-                I am a 17 year old transfem (she/her) quantum physicist and software engineer named Kali, I typically spend my time combining these practices in niche ways as a visualization or challenge. I also really like teaching physics to people who are enthusiastic about learning them ^-^  
-            </p>
-        </div>
-
+            <div id="about" class="section" style="--i:2">
+                <h2>About Me</h2>
+                
+                <div class="about-container">
+                    <div class="about-card">
+                        <div class="about-avatar">
+                            <img src="avatar.jpg" alt="Avatar" class="avatar-img">
+                            <div class="avatar-glow"></div>
+                        </div>
+                        
+                        <div class="about-details">
+                            <div class="about-item">
+                                <span class="about-label">Name:</span>
+                                <span class="about-value">Kali / BunnyHaver</span>
+                            </div>
+                            <div class="about-item">
+                                <span class="about-label">Age:</span>
+                                <span class="about-value">17</span>
+                            </div>
+                            <div class="about-item">
+                                <span class="about-label">Pronouns:</span>
+                                <span class="about-value">She/Her</span>
+                            </div>
+                            <div class="about-item">
+                                <span class="about-label">Practice:</span>
+                                <span class="about-value">Quantum Physicist & Software Engineer</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-text">
+                        <p>I typically spend my time combining quantum physics and software engineering in niche ways as a visualization or challenge. I'm very interested in pushing the boundaries of quantum computation and applying it to everday programming.</p>
+                        <p>I also really like teaching people who are enthusiastic about quantum mechanics <span class="emoji">^-^</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         <div class="section-divider"></div>
 
         <div class="section" style="--i:3">
@@ -446,7 +642,6 @@
                 Eventually ill properly link this page to my github, and make a visual showcase of some of my stuff, just give me like... 20 years?
             </p>
         </div>
-
 
         <div class="section-divider"></div>
 
