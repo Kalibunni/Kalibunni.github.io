@@ -54,7 +54,6 @@
             z-index: 1001;
         }
 
-
         .about-container {
             display: flex;
             flex-direction: column;
@@ -305,40 +304,53 @@
             margin: 40px auto;
         }
 
-        .badges {
-            margin-top: 60px;
+        .friends-container {
             display: flex;
-            justify-content: center;
-            gap: 120px;
             flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-top: 30px;
+            max-width: 700px;
         }
 
-        .badge-container {
+        .friend-link {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            gap: 8px;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            flex-basis: auto;
         }
 
-        .badge-container img {
+        .friend-link:hover {
+            transform: translateY(-8px);
+        }
+
+        .friend-link img {
+            width: auto;
+            height: auto;
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: contain;
             image-rendering: pixelated;
-            transform: scale(2);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
+            display: block;
         }
 
-        .badge-container:hover img {
-            transform: scale(3);
+        .friend-link:hover img {
+            box-shadow: 0 5px 15px rgba(235, 160, 172, 0.5);
+            transform: scale(1.1);
         }
 
-        .badge-label {
-            margin-top: 10px;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+        @media (max-width: 768px) {
+            .friends-container {
+                gap: 10px;
+            }
 
-        .badge-container:hover .badge-label {
-            opacity: 1;
+            .friend-link img {
+                max-width: 50px;
+                max-height: 50px;
+            }
         }
 
         .project-card {
@@ -481,10 +493,6 @@
             .center-panel {
                 width: 95%;
                 padding: 20px;
-            }
-
-            .badges {
-                gap: 40px;
             }
             
             .skill-list {
@@ -664,24 +672,26 @@
                     <span style="color:var(--text-muted); font-weight: bold;">@kali:matrix.kalidev.cc</span>
                 </div>
             </div>
-            <div class="badges">
-                <div class="badge-container">
-                    <img src="female.png" alt="Female Badge">
-                    <span class="badge-label">Transfem</span>
-                </div>
-                <div class="badge-container">
-                    <img src="latte.png" alt="Latte Badge">
-                    <span class="badge-label">Coffee Lover</span>
-                </div>
-                <div class="badge-container">
-                    <img src="pride1.png" alt="Pride Badge">
-                    <span class="badge-label">LGBTQ+</span>
+            <div class="section-divider"></div>
+
+            <div class="section" style="--i:7">
+                <h2>Friends' Sites</h2>
+            
+                <p style="color: var(--contact-text);">
+                    Some of my friends sites! Click on their links or badges to travel there
+                </p>
+            
+                <div class="friends-container">
+                    <a href="https://home.illuc.xyz/" target="_blank" class="friend-link">
+                        <img src="illuc.gif" alt="Illuc's Site" width="88" height="31">
+                    </a>
+                    <a href="https://gingershaped.computer/referred/by/button/to/index" target="_blank" class="friend-link">
+                        <img src="gingersite.png" alt="Ginger's Site" width="88" height="31">
+                    </a>
                 </div>
             </div>
         </div>
-        
-        <div id="toast" class="toast">📋 Copied!</div>
-    </div>
+
         
     <div class="back-to-top">↑</div>
 
@@ -689,7 +699,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const toast = document.getElementById('toast');
             const contactItems = document.querySelectorAll('.copy-contact');
-    
+
             contactItems.forEach(item => {
                 item.addEventListener('click', (e) => {
                     const contactText = item.getAttribute('data-contact');
@@ -720,11 +730,11 @@
                     });
                 });
             });
-    
+
             const body = document.body;
             const stars = [];
             const backToTopButton = document.querySelector('.back-to-top');
-    
+
             
             const layers = 3;
             const pageHeight = Math.max(document.body.scrollHeight, 2000);
@@ -804,6 +814,18 @@
                             behavior: 'smooth'
                         });
                     }
+                });
+            });
+
+            // Friend links hover effect
+            const friendLinks = document.querySelectorAll('.friend-link');
+            friendLinks.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    link.style.transform = 'translateY(-8px)';
+                });
+                
+                link.addEventListener('mouseleave', () => {
+                    link.style.transform = 'translateY(0)';
                 });
             });
         });
