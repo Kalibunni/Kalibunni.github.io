@@ -40,17 +40,20 @@
         }
 
         .time-box {
+            position: fixed;
+            top: 20px;
+            right: 20px;
             background-color: rgba(147, 153, 178, 0.2);
             border: 1px solid var(--accent-color);
-            padding: 10px 15px;
-            margin-bottom: 20px;
+            padding: 8px 15px;
             text-align: center;
-            width: fit-content;
-            font-size: 1.1rem;
-            border-radius: 5px;
+            font-size: 0.9rem;
+            border-radius: 20px;
             opacity: 0;
             animation: fadeInPage 2s ease-in forwards;
+            z-index: 1001;
         }
+
 
         .about-container {
             display: flex;
