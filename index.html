@@ -290,9 +290,17 @@
         }
 
         .section-divider {
-            width: 80%;
+            width: 90%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            background: linear-gradient(90deg, 
+                transparent,
+                #55CDFC, 
+                #F7A8B8, 
+                #FFFFFF, 
+                #F7A8B8, 
+                #55CDFC, 
+                transparent
+            );
             margin: 40px auto;
         }
 
@@ -639,7 +647,7 @@
                 </p>
             </div>
             
-            <p style="color: var(--footer-text); margin-top: 30px;">
+            <p style="color: var(--contact-text); margin-top: 30px;">
                 Eventually ill properly link this page to my github, and make a visual showcase of some of my stuff, just give me like... 20 years?
             </p>
         </div>
@@ -655,11 +663,13 @@
             
             <div class="contact-row">
                 <div class="contact copy-contact" data-contact="bunnyhaver">
+                    <img src="discord.svg" alt="Discord" style="width: 24px; height: 24px;">
                     <span style="color:#c0c5ff; font-weight: bold;">Discord:</span>
                     <span style="color:var(--text-muted); font-weight: bold;">bunnyhaver</span>
                 </div>
-        
+            
                 <div class="contact copy-contact" data-contact="@kali:matrix.kalidev.cc">
+                    <img src="matrix.svg" alt="Matrix" style="width: 24px; height: 24px;">
                     <span style="color:#c0c5ff; font-weight: bold;">Matrix:</span>
                     <span style="color:var(--text-muted); font-weight: bold;">@kali:matrix.kalidev.cc</span>
                 </div>
@@ -669,7 +679,7 @@
             <div class="section" style="--i:7">
                 <h2>Friends' Sites</h2>
             
-                <p style="color: var(--contact-text);">
+                <p style="color: var(--footer-text);">
                     Some of my friends sites! Click on their links or badges to travel there
                 </p>
             
@@ -691,6 +701,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             const toast = document.getElementById('toast');
             const contactItems = document.querySelectorAll('.copy-contact');
+
+            console.log("hai :3")
 
             contactItems.forEach(item => {
                 item.addEventListener('click', (e) => {
