@@ -27,7 +27,7 @@ body {
     min-height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
-    line-height: 1.6;
+    line-height: 1.65;
 }
 
 .time-box {
@@ -39,10 +39,14 @@ body {
     padding: 8px 15px;
     text-align: center;
     font-size: 0.9rem;
-    border-radius: 20px;
+    border-radius: 10px;
     opacity: 0;
-    animation: fadeInPage 2s ease-in forwards;
+    animation: fadeInPage 1.5s ease-in forwards;
     z-index: 1001;
+}
+
+.about-card .secret-text {
+    color: rgba(68, 70, 89, 0.15);
 }
 
 .about-container {
@@ -68,7 +72,7 @@ body {
 .about-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    border-color: var(--accent-color);
+    border-color: var(--secondary-accent);
 }
 
 .about-avatar {
@@ -93,7 +97,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--secondary-accent) 0%, transparent 70%);
     border-radius: 50%;
     opacity: 0.5;
     filter: blur(10px);
@@ -114,6 +118,7 @@ body {
 
 .about-details {
     display: flex;
+    color: var(--secondary-accent);
     flex-direction: column;
     gap: 10px;
     justify-content: center;
@@ -134,7 +139,7 @@ body {
 
 .about-value {
     font-size: 1rem;
-    color: var(--accent-color);
+    color: var(--secondary-accent);
     font-weight: 500;
 }
 
@@ -143,7 +148,7 @@ body {
     border-radius: 12px;
     padding: 20px;
     text-align: left;
-    border-left: 3px solid var(--accent-color);
+    border-left: 3px solid var(--secondary-accent);
     color: var(--text-muted);
     line-height: 1.7;
 }
@@ -154,7 +159,7 @@ body {
 
 .emoji {
     display: inline-block;
-    color: var(--accent-color);
+    color: var(--secondary-accent);
     font-weight: bold;
     transform: scale(1.2);
     animation: wave 2s infinite;
@@ -281,19 +286,20 @@ a:hover {
 }
 
 .section-divider {
-    width: 90%;
+    width: 80%;
     height: 2px;
     background: linear-gradient(90deg,
             transparent,
-            #55CDFC,
-            #F7A8B8,
-            #FFFFFF,
-            #F7A8B8,
-            #55CDFC,
+            #89b4fa,
+            #f5c2e7,
+            #cdd6f4,
+            #f5c2e7,
+            #89b4fa,
             transparent
     );
-    margin: 40px auto;
+    margin: 30px auto;
 }
+
 
 .friends-container {
     display: flex;
