@@ -35,7 +35,7 @@ body {
     position: fixed;
     top: 20px;
     right: 20px;
-    background-color: rgba(147, 153, 178, 0.2);
+    background-color: var(--card-bg);
     border: 1px solid var(--accent-color);
     padding: 8px 15px;
     text-align: center;
